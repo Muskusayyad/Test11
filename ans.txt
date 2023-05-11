@@ -1,0 +1,83 @@
+# Test1
+1.drop unrelated columns
+
+2.check for null values
+
+3.drop null values
+
+4.What is the average age of customers?
+
+5.Who are the majority buyers? (genderwise)
+
+6.where do our majority customers fall(age)?
+
+7.Which state has highest sales?
+
+8.How does occupation effect the purchase?
+
+9.Which are the top 10 products to be sold? function? 
+
+10.What is function create a function to accept input(name) from the user and print name" welcome to symbi
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+import os
+os.getcwd()
+
+data = pd.read_csv(r"C:\Users\sayya\Downloads\symbiosis\sales.csv",encoding="unicode_escape")
+
+data
+
+# 1.drop unrelated columns
+data.dropna()
+
+# 2.check for null values
+data.isnull().sum()
+
+# 3.drop null values
+data.drop(['Status','unnamed1'],axis = 1)
+
+# 4.What is the average age of customers?
+data.groupby('Cust_name')['Age'].mean()
+
+# 5.Who are the majority buyers? (genderwise)
+x = data['Gender']
+y = data['Amount']
+plt.hist(x,bins=20)
+plt.title('Majority Buyers')
+plt.xlabel('Gender')
+plt.ylabel('Amount')
+plt.show()
+
+# 6.where do our majority customers fall(age)?
+x = data['Age']
+y = data['Amount']
+plt.hist(x,bins=20,color='purple',edgecolor='white')
+plt.title('Majority Customers')
+plt.xlabel('Age')
+plt.ylabel('Amount')
+plt.show()
+
+# 7.Which state has highest sales?
+plt.figure(figsize=(25,5))
+sns.countplot(x='State',data=data,palette='Set1')
+
+# 8.How does occupation effect the purchase?
+plt.figure(figsize=(25,5))
+sns.countplot(x='Occupation',data=data,palette='Set1')
+plt.title('effect of occupation on purchase')
+plt.xlabel('Occupation')
+plt.ylabel('Amount')
+plt.show()
+
+# 9.Which are the top 10 products to be sold?
+data.groupby('Orders')['Product_Category'].count()
+
+# 10.What is function create a function to accept input(name) from the user and print name" welcome to symbi
+#function is a block of code which only run when it is called
+def function(name):
+    print("welcome to symbiosis",name)
+function('Milly')
